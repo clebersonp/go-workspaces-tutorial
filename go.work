@@ -1,0 +1,24 @@
+go 1.20
+
+// go.work can be used instead of adding replace directives to work across multiple modules.
+// Since the two modules are in the same workspace it’s easy to make a change in one module and use it in another.
+
+// Download and modify the golang.org/x/example module
+// In this step, we’ll download a copy of the Git repo containing the golang.org/x/example module, add it to the workspace,
+// and then add a new function to it that we will use from the hello program.
+// From the workspace directory, run the git command to clone the repository:
+// $ git clone https://go.googlesource.com/example
+// Add the module to the workspace
+// $ go work use ./example
+
+// Now, to properly release these modules we’d need to make a release of the golang.org/x/example module, for example at v0.1.0.
+// This is usually done by tagging a commit on the module’s version control repository.
+// See the module release workflow documentation for more details.
+// Once the release is done, we can increase the requirement on the golang.org/x/example module in hello/go.mod:
+// $ cd hello
+// $ go get golang.org/x/example@v0.1.0
+
+use (
+	./example
+	./hello
+)
